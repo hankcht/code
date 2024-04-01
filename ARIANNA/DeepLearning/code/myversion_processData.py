@@ -25,7 +25,7 @@ plots_path_loss = '/data/homezvol3/tangch3/ARIANNA/DeepLearning/plots/loss/'  #P
 amp = '200s'                                                                  #Set which amplifier to run on
 RCR_path = f'simulatedRCRs/{amp}_2.9.24/'
 backlobe_path = f'simulatedBacklobes/{amp}_2.9.24/'
-TrainCut = 5000                                                                     #Number of events to use for training
+TrainCut = 5000                                                               #Number of events to use for training
 
 def load_data():
     RCR_files = []
