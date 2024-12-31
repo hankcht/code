@@ -1,4 +1,4 @@
-![plot]"C:\Users\hankt\Downloads\ChiSNR_PassedCuts_Stnd14.png"
+
 
 All data:               Circled data:         Above BL curve data: 
 stn 14:     963361                      52                            318
