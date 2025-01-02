@@ -13,8 +13,9 @@ from NuRadioReco.utilities import units, fft
 
     
 def getMaxChi(traces, sampling_rate, template_trace, template_sampling_rate, parallelChannels=[[0, 2], [1, 3]]):
+    # note: variable parallelChannels uses a list as default, which may lead to unexpected results. Avoid this
+    
     # Parallel channels should be index corresponding to the channel in traces
-
     maxCorr = []
     for parChans in parallelChannels:
         parCorr = 0
@@ -41,7 +42,6 @@ def getMaxSNR(traces, noiseRMS=22.53 * units.mV):
             SNRs.append(p2p / (2*noiseRMS))
 
     # quit()
-
     return max(SNRs)
 
 def load_data(type, amp_type, station_id):
@@ -140,10 +140,10 @@ def load_sim(path, RCR_path, backlobe_path, amp):
     return RCR, Backlobe
 
 def pT(traces, title, saveLoc, sampling_rate=2, show=False, average_fft_per_channel=[]):
-    #Sampling rate should be in GHz
+    # Sampling rate should be in GHz
     print(f'printing')
-    #Important Clarification: In our actual experiment, we receive one data point per 0.5ns, so our duration of 128ns gives 256 data points
-    #it is different from here where I organize one data point to one ns and make the total time 256ns (these two are mathematically identical)
+    # Important Clarification: In our actual experiment, we receive one data point per 0.5ns, so our duration of 128ns gives 256 data points
+    # it is different from here where I organize one data point to one ns and make the total time 256ns (these two are mathematically identical)
     x = np.linspace(1, int(256 / sampling_rate), num=256)
     x_freq = np.fft.rfftfreq(len(x), d=(1 / sampling_rate * units.GHz)) / units.MHz
 
@@ -189,14 +189,10 @@ def pT(traces, title, saveLoc, sampling_rate=2, show=False, average_fft_per_chan
     axs[0][0].tick_params(labelsize=10)
     axs[0][1].tick_params(labelsize=10)
     axs[0][0].set_ylabel(f'ch{0}', labelpad=10, rotation=0, fontsize=10)
-
-    # Final x and y axis limits
     axs[chID][0].set_xlim(-3, 260 / sampling_rate)
     axs[chID][1].set_xlim(-3, 1000)
 
-    # Add a common y-axis label for the entire figure
     fig.text(0.05, 0.5, 'Voltage [V]', ha='right', va='center', rotation='vertical', fontsize=12)
-
     plt.suptitle(title)
 
     plt.tight_layout(pad=1.0)
